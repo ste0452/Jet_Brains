@@ -1,0 +1,239 @@
+full_list = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
+x_win_count = 0
+o_win_count = 0
+turn = 0
+
+while x_win_count == 0 and o_win_count == 0:
+    print("---------")
+    print("| " + str(full_list[0]) + " " + str(full_list[1]) + " " + str(full_list[2]) + " |")
+    print("| " + str(full_list[3]) + " " + str(full_list[4]) + " " + str(full_list[5]) + " |")
+    print("| " + str(full_list[6]) + " " + str(full_list[7]) + " " + str(full_list[8]) + " |")
+    print("---------")
+
+    x = [x for x in full_list if x == 'X']
+    o = [o for o in full_list if o == 'O']
+
+    winning_combinations_horizontal = [full_list[i:i + 3] for i in range(0, len(full_list), 3)]
+    winning_combinations_vertical = [full_list[i::3] for i in range(3)]
+    winning_combinations_diagonal = [[full_list[0], full_list[4], full_list[8]],
+                                     [full_list[2], full_list[4], full_list[6]]]
+    if turn == 0 or turn % 2 == 0:
+        if abs(len(x) - len(o)) > 1:
+            print("Impossible")
+        elif ' ' not in full_list:
+            for x in winning_combinations_horizontal + winning_combinations_vertical + winning_combinations_diagonal:
+                if all(elem == 'X' for elem in x) == True:
+                    x_win_count += 1
+                elif all(elem == 'O' for elem in x) == True:
+                    o_win_count += 1
+            if x_win_count > 0 and o_win_count == 0:
+                print("X wins")
+            elif o_win_count > 0 and x_win_count == 0:
+                print("O wins")
+            elif o_win_count > 0 and x_win_count > 0:
+                print("Impossible")
+            elif o_win_count == 0 and x_win_count == 0:
+                print("Draw")
+                x_win_count += 1
+                o_win_count += 0
+        elif ' ' in full_list:
+            for x in winning_combinations_horizontal + winning_combinations_vertical + winning_combinations_diagonal:
+                if all(elem == 'X' for elem in x) == True:
+                    x_win_count += 1
+                elif all(elem == 'O' for elem in x) == True:
+                    o_win_count += 1
+            if x_win_count > 0 and o_win_count == 0:
+                print("X wins")
+            elif o_win_count > 0 and x_win_count == 0:
+                print("O wins")
+            elif o_win_count > 0 and x_win_count > 0:
+                print("Impossible")
+            else:
+                numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+                correct_numbers = ["1", "2", "3"]
+                i = 0
+                while i < 1:
+                    coordinates = input("Enter the coordinates: ").split()
+                    number_check = [True if n in numbers else False for n in coordinates]
+                    correct_numbers_check = [True if o in correct_numbers else False for o in coordinates]
+                    if False in number_check:
+                        print("You should enter numbers!")
+                    else:
+                        if False in correct_numbers_check:
+                            print("Coordinates should be from 1 to 3!")
+                        else:
+                            x = coordinates[0]
+                            y = coordinates[1]
+                            if int(x) == 1 and int(y) == 1:
+                                if full_list[0] == " ":
+                                    full_list[0] = "X"
+                                    i += 1
+                                    turn += 1
+                                else:
+                                    print("This cell is occupied! Choose another one!")
+                            elif int(x) == 1 and int(y) == 2:
+                                if full_list[1] == " ":
+                                    full_list[1] = "X"
+                                    i += 1
+                                    turn += 1
+                                else:
+                                    print("This cell is occupied! Choose another one!")
+                            elif int(x) == 1 and int(y) == 3:
+                                if full_list[2] == " ":
+                                    full_list[2] = "X"
+                                    i += 1
+                                    turn += 1
+                                else:
+                                    print("This cell is occupied! Choose another one!")
+                            elif int(x) == 2 and int(y) == 1:
+                                if full_list[3] == " ":
+                                    full_list[3] = "X"
+                                    i += 1
+                                    turn += 1
+                                else:
+                                    print("This cell is occupied! Choose another one!")
+                            elif int(x) == 2 and int(y) == 2:
+                                if full_list[4] == " ":
+                                    full_list[4] = "X"
+                                    i += 1
+                                    turn += 1
+                                else:
+                                    print("This cell is occupied! Choose another one!")
+                            elif int(x) == 2 and int(y) == 3:
+                                if full_list[5] == " ":
+                                    full_list[5] = "X"
+                                    i += 1
+                                    turn += 1
+                                else:
+                                    print("This cell is occupied! Choose another one!")
+                            elif int(x) == 3 and int(y) == 1:
+                                if full_list[6] == " ":
+                                    full_list[6] = "X"
+                                    i += 1
+                                    turn += 1
+                                else:
+                                    print("This cell is occupied! Choose another one!")
+                            elif int(x) == 3 and int(y) == 2:
+                                if full_list[7] == " ":
+                                    full_list[7] = "X"
+                                    i += 1
+                                    turn += 1
+                                else:
+                                    print("This cell is occupied! Choose another one!")
+                            elif int(x) == 3 and int(y) == 3:
+                                if full_list[8] == " ":
+                                    full_list[8] = "X"
+                                    i += 1
+                                    turn += 1
+                                else:
+                                    print("This cell is occupied! Choose another one!")
+    else:
+        if abs(len(x) - len(o)) > 1:
+            print("Impossible")
+        elif ' ' not in full_list:
+            for x in winning_combinations_horizontal + winning_combinations_vertical + winning_combinations_diagonal:
+                if all(elem == 'X' for elem in x) == True:
+                    x_win_count += 1
+                elif all(elem == 'O' for elem in x) == True:
+                    o_win_count += 1
+            if x_win_count > 0 and o_win_count == 0:
+                print("X wins")
+            elif o_win_count > 0 and x_win_count == 0:
+                print("O wins")
+            elif o_win_count > 0 and x_win_count > 0:
+                print("Impossible")
+            elif o_win_count == 0 and x_win_count == 0:
+                print("Draw")
+                x_win_count += 1
+                o_win_count += 0
+        elif ' ' in full_list:
+            for x in winning_combinations_horizontal + winning_combinations_vertical + winning_combinations_diagonal:
+                if all(elem == 'X' for elem in x) == True:
+                    x_win_count += 1
+                elif all(elem == 'O' for elem in x) == True:
+                    o_win_count += 1
+            if x_win_count > 0 and o_win_count == 0:
+                print("X wins")
+            elif o_win_count > 0 and x_win_count == 0:
+                print("O wins")
+            elif o_win_count > 0 and x_win_count > 0:
+                print("Impossible")
+            else:
+                numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+                correct_numbers = ["1", "2", "3"]
+                i = 0
+                while i < 1:
+                    coordinates = input("Enter the coordinates: ").split()
+                    number_check = [True if n in numbers else False for n in coordinates]
+                    correct_numbers_check = [True if o in correct_numbers else False for o in coordinates]
+                    if False in number_check:
+                        print("You should enter numbers!")
+                    else:
+                        if False in correct_numbers_check:
+                            print("Coordinates should be from 1 to 3!")
+                        else:
+                            x = coordinates[0]
+                            y = coordinates[1]
+                            if int(x) == 1 and int(y) == 1:
+                                if full_list[0] == " ":
+                                    full_list[0] = "O"
+                                    i += 1
+                                    turn += 1
+                                else:
+                                    print("This cell is occupied! Choose another one!")
+                            elif int(x) == 1 and int(y) == 2:
+                                if full_list[1] == " ":
+                                    full_list[1] = "O"
+                                    i += 1
+                                    turn += 1
+                                else:
+                                    print("This cell is occupied! Choose another one!")
+                            elif int(x) == 1 and int(y) == 3:
+                                if full_list[2] == " ":
+                                    full_list[2] = "O"
+                                    i += 1
+                                    turn += 1
+                                else:
+                                    print("This cell is occupied! Choose another one!")
+                            elif int(x) == 2 and int(y) == 1:
+                                if full_list[3] == " ":
+                                    full_list[3] = "O"
+                                    i += 1
+                                    turn += 1
+                                else:
+                                    print("This cell is occupied! Choose another one!")
+                            elif int(x) == 2 and int(y) == 2:
+                                if full_list[4] == " ":
+                                    full_list[4] = "O"
+                                    i += 1
+                                    turn += 1
+                                else:
+                                    print("This cell is occupied! Choose another one!")
+                            elif int(x) == 2 and int(y) == 3:
+                                if full_list[5] == " ":
+                                    full_list[5] = "O"
+                                    i += 1
+                                    turn += 1
+                                else:
+                                    print("This cell is occupied! Choose another one!")
+                            elif int(x) == 3 and int(y) == 1:
+                                if full_list[6] == " ":
+                                    full_list[6] = "O"
+                                    i += 1
+                                    turn += 1
+                                else:
+                                    print("This cell is occupied! Choose another one!")
+                            elif int(x) == 3 and int(y) == 2:
+                                if full_list[7] == " ":
+                                    full_list[7] = "O"
+                                    i += 1
+                                    turn += 1
+                                else:
+                                    print("This cell is occupied! Choose another one!")
+                            elif int(x) == 3 and int(y) == 3:
+                                if full_list[8] == " ":
+                                    full_list[8] = "O"
+                                    i += 1
+                                    turn += 1
+                                else:
+                                    print("This cell is occupied! Choose another one!")
