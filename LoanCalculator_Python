@@ -1,0 +1,72 @@
+import argparse
+import math
+import sys
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--type', type=str)
+parser.add_argument('--payment', type=float)
+parser.add_argument('--principal', type=float)
+parser.add_argument('--periods', type=int)
+parser.add_argument('--interest', type=float)
+
+args = parser.parse_args()
+
+if __name__ == "__main__":
+    if args.type is None:
+        print("Incorrect Parameters")
+    elif args.type == 'diff' and args.payment is not None:
+        print("Incorrect Parameters")
+    elif args.interest is None:
+        print("Incorrect Parameters")
+    elif len(sys.argv) - 1 < 4:
+        print("Incorrect Parameters")
+    elif args.type == 'annuity' and args.principal is not None and args.payment is not None\
+            and args.interest is not None:
+        nominal_interest = args.interest / (12*100)
+        x = args.payment / (args.payment - nominal_interest * args.principal)
+        n = math.log(x, (1 + nominal_interest))
+        overpayment = int((args.payment * math.ceil(n)) - args.principal)
+
+        if math.ceil(n) / 12 < 1:
+            print("It will take " + str(int(math.ceil(n))) + " months to repay this loan!")
+            print("Overpayment = " + str(overpayment))
+        elif math.ceil(n) / 12 == 1:
+            print("It will take 1 year to repay the loan!")
+            print("Overpayment = " + str(overpayment))
+        elif math.ceil(n) % 12 == 0:
+            print("It will take " + str(int(math.ceil(n) / 12)) + " years to repay the loan!")
+            print("Overpayment = " + str(overpayment))
+        else:
+            print("It will take " + str(int(math.ceil(n) // 12)) + " years and " + str(int(math.ceil(n) % 12)) +
+                  " months to repay the loan!")
+            print("Overpayment = " + str(overpayment))
+    elif args.type == 'annuity' and args.principal is not None and args.periods is not None\
+            and args.interest is not None:
+        nominal_interest = args.interest / (12 * 100)
+        a = args.principal * (nominal_interest * (1 + nominal_interest) ** args.periods) / \
+            (((1 + nominal_interest) ** args.periods) - 1)
+
+        print("Your annuity payment = " + str(math.ceil(a)) + "!")
+        overpayment = int((math.ceil(a) * args.periods) - args.principal)
+        print("Overpayment = " + str(overpayment))
+    elif args.type == 'annuity' and args.payment is not None and args.periods is not None\
+            and args.interest is not None:
+        nominal_interest = args.interest / (12 * 100)
+        loan_principal = args.payment / ((nominal_interest * (1 + nominal_interest) ** args.periods) /
+                                         (((1 + nominal_interest) ** args.periods) - 1))
+
+        print("Your loan principal = " + str(math.floor(loan_principal)) + "!")
+        overpayment = int((args.payment * args.periods) - math.floor(loan_principal))
+        print("Overpayment = " + str(overpayment))
+    elif args.type == 'diff' and args.principal is not None and args.periods is not None \
+            and args.interest is not None:
+        nominal_interest = args.interest / (12*100)
+        total = 0
+        for month in range(1, args.periods + 1):
+            payment = (args.principal / args.periods) + nominal_interest * \
+                      (args.principal - ((args.principal * (month - 1)) / args.periods))
+            print("Month " + str(month) + ": payment is " + str(math.ceil(payment)))
+            total += math.ceil(payment)
+        print()
+        overpayment = int(math.ceil(total - args.principal))
+        print("Overpayment = " + str(overpayment))
